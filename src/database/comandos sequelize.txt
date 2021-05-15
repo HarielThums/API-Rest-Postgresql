@@ -1,0 +1,13 @@
+>> Sequelize:
+
+> como criar um db?
+sequelize db:create
+
+> como criar novas migrations?
+sequelize migration:create --name=nome-da-migration
+
+> como criar as tabelas das novas migrations?
+sequelize db:migrate
+
+> como desfazer uma migration?
+sequelize db:migrate:undo
