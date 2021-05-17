@@ -15,5 +15,6 @@ router.post('/authenticate', UserController.authenticate)
 
 router.put('/forgot_password', UserController.forgot_password)
 
+router.put('/reset_password', UserController.reset_password)
 
 module.exports = router
