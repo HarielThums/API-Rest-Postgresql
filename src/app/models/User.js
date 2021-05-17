@@ -13,10 +13,6 @@ class User extends Model {
         },{
             sequelize: connection
         })
-        // criptografando password no pré save...
-        User.addHook('beforeSave', async client => {
-                client.password = await bcrypt.hash(client.password, 10)
-        })
     }
 }
 

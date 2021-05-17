@@ -19,7 +19,10 @@ exports.register = async (req, res) => {
             if ( await User.findOne({ where: { email }}))
                 return res.status(400).send({ error: 'User already exists' })
 
-            const user = await User.create({ name, email, password })
+            // criptografando password no pré save...
+            const hashPassword = await bcrypt.hash(password, 10)
+
+            const user = await User.create({ name, email, password: hashPassword })
 
             user.password = undefined // para a senha não voltar no corpo da requisição
 
@@ -48,7 +51,7 @@ exports.authenticate = async (req,res) => {
             user.password = undefined // para a senha não voltar no corpo da requisição
 
             res.send({
-                user,
+                email,
                 token: generateToken({ id: user.id })
             }) // não havendo erro, login success
         } catch (error) {
@@ -69,15 +72,15 @@ exports.authenticate = async (req,res) => {
             const now = await new Date()
             now.setHours(now.getHours() + 1) // Definindo tempo de 1 hora para limitar duração do token
 
-            // passwordResetExpires: now,
-
-            await user.increment({ password_reset_token: token }, { where: { email: email }} )
+            await user.update({ passwordResetToken: token, passwordResetExpires: now }, { where: {email} })
 
             mailer.sendMail({
                 to: email,
                 from: 'teste@contato.com',
                 template: '/forgot_password',
-                content: { token },
+                // html: `<p>Você esqueceu sua senha? Não tem problema, utilize esse token para recuperar sua senha: ${token} </p>
+                // `,
+                content: { token } ,
             }, (err) => {
                 if (err)
                     return res.status(400).send({ error: 'Cannot send forgot password email' })
@@ -86,7 +89,6 @@ exports.authenticate = async (req,res) => {
             })
 
         } catch (error) {
-            console.log(error)
             res.status(400).send({ error: 'Erro on forgot password, try again' })
         }
     }

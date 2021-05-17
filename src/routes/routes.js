@@ -13,7 +13,7 @@ router.post('/register', UserController.register)
 
 router.post('/authenticate', UserController.authenticate)
 
-router.post('/forgot_password', UserController.forgot_password)
+router.put('/forgot_password', UserController.forgot_password)
 
 
 module.exports = router
