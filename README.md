@@ -22,7 +22,7 @@
     fs
     nodemailer
     nodemailer-express-handlebars
-    Usado no disparo de email: [Mailtrap](https://mailtrap.io/inboxes)
+    Usado Mailtrap no disparo de email
     
 ### Para rodar, será necessário;
 - [x] Node.js
