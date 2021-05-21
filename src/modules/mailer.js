@@ -10,10 +10,7 @@ const transport = nodemailer.createTransport({
   });
 
   transport.use('compile', hbs({
-      viewEngine: {
-          defaultLayout: undefined,
-          partialsDir: path.resolve('./resources/mail/')
-        },
+    viewEngine: 'handlebars',
       viewPath: path.resolve('./src/resources/mail/'), // resolve parte sempre da raiz absoluta do projeto.
       extName: '.html'
   }))
