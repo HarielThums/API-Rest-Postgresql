@@ -78,8 +78,9 @@ exports.forgot_password = async (req, res) => {
 
         mailer.sendMail({
             to: email,
-            from: 'teste@contato.com',
+            from: '"Contato " <teste@contato.com>',
             template: '/forgot_password',
+            subject: "Reset password", // assunto do email
             context: { token } ,
         }, (err) => {
                 if (err)
