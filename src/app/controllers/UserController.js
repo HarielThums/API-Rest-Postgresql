@@ -80,7 +80,7 @@ exports.forgot_password = async (req, res) => {
             to: email,
             from: 'teste@contato.com',
             template: '/forgot_password',
-            content: { token } ,
+            context: { token } ,
         }, (err) => {
                 if (err)
                     return res.status(400).send({ error: 'Cannot send forgot password email' })
