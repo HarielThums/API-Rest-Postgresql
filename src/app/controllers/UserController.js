@@ -31,7 +31,6 @@ exports.register = async (req, res) => {
             token: generateToken({ id: user.id })
         })
     } catch (error) {
-        console.log(error)
         return res.status(400).send({ error: 'Registration failed' })
     }
 }
@@ -81,7 +80,6 @@ exports.forgot_password = async (req, res) => {
             to: email,
             from: 'teste@contato.com',
             template: '/forgot_password',
-            html: `<p>Você esqueceu sua senha? Não tem problema, utilize esse token para recuperar sua senha: ${token} </p>`,
             content: { token } ,
         }, (err) => {
                 if (err)
